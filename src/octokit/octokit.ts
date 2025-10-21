@@ -13,7 +13,7 @@ export const octokit = new ThrottledOctokit({
   throttle: {
     onSecondaryRateLimit: (retryAfter, options, octokit, retryCount) => {
       octokit.log.error(
-        `SecondaryRateLimit detected for request ${options.method} ${options.url}. ${retryCount} retries.`
+        `SecondaryRateLimit detected for request ${options.method} ${options.url}. ${retryCount} retries, retry after ${retryAfter} seconds.`
       );
       if (retryCount < 2) {
         // only retries twice
@@ -27,7 +27,7 @@ export const octokit = new ThrottledOctokit({
     },
     onRateLimit: (retryAfter, options, octokit, retryCount) => {
       octokit.log.error(
-        `Request quota exhausted for request ${options.method} ${options.url}. ${retryCount} retries.`
+        `Request quota exhausted for request ${options.method} ${options.url}. ${retryCount} retries, retry after ${retryAfter} seconds.`
       );
       if (retryCount < 2) {
         // only retries twice

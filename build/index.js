@@ -53768,7 +53768,7 @@ const octokit = new ThrottledOctokit({
     auth: getValueAsIs("GITHUB_TOKEN"),
     throttle: {
         onSecondaryRateLimit: (retryAfter, options, octokit, retryCount) => {
-            octokit.log.error(`SecondaryRateLimit detected for request ${options.method} ${options.url}. ${retryCount} retries.`);
+            octokit.log.error(`SecondaryRateLimit detected for request ${options.method} ${options.url}. ${retryCount} retries, retry after ${retryAfter} seconds.`);
             if (retryCount < 2) {
                 // only retries twice
                 octokit.log.info(`Retrying after ${retryAfter} seconds! ${retryCount} retries.`);
@@ -53780,7 +53780,7 @@ const octokit = new ThrottledOctokit({
             throw `SecondaryRateLimit detected for request ${options.method} ${options.url}`;
         },
         onRateLimit: (retryAfter, options, octokit, retryCount) => {
-            octokit.log.error(`Request quota exhausted for request ${options.method} ${options.url}. ${retryCount} retries.`);
+            octokit.log.error(`Request quota exhausted for request ${options.method} ${options.url}. ${retryCount} retries, retry after ${retryAfter} seconds.`);
             if (retryCount < 2) {
                 // only retries twice
                 octokit.log.info(`Retrying after ${retryAfter} seconds! ${retryCount} retries.`);
