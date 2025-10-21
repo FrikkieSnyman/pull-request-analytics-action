@@ -1,7 +1,7 @@
 import { isBefore, parseISO } from "date-fns";
-import { makeComplexRequest } from "../../../requests";
-import { invalidUserLogin } from "../../constants";
-import { checkUserInclusive } from "./checkUserInclusive";
+import { makeComplexRequest } from "../../../requests/index.js";
+import { invalidUserLogin } from "../../constants.js";
+import { checkUserInclusive } from "./checkUserInclusive.js";
 
 export const getApproveTime = (
   reviews: Awaited<ReturnType<typeof makeComplexRequest>>["events"][number],

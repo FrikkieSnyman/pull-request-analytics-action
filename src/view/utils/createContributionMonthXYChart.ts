@@ -1,5 +1,5 @@
-import { Collection } from "../../converters/types";
-import { createXYChart } from "./common/createXYChart";
+import { Collection } from "../../converters/types.js";
+import { createXYChart } from "./common/createXYChart.js";
 
 export const createContributionMonthsXYChart = (
   data: Record<string, Record<string, Collection>>,

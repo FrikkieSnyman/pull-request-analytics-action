@@ -1,4 +1,4 @@
-import { getMultipleValuesInput } from "../../../common/utils";
+import { getMultipleValuesInput } from "../../../common/utils/index.js";
 export const checkUserInclusive = (name: string) => {
   if (
     getMultipleValuesInput("EXCLUDE_USERS").length === 0 &&

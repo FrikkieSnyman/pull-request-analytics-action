@@ -1,9 +1,9 @@
-import { createReferences } from ".";
-import { getMultipleValuesInput } from "../../common/utils";
-import { Collection } from "../../converters/types";
-import { createContributionMonthsXYChart } from "./createContributionMonthXYChart";
-import { createTimelineMonthsXYChart } from "./createTimelineMonthXYChart";
-import { StatsType } from "./types";
+import { createReferences } from "./index.js";
+import { getMultipleValuesInput } from "../../common/utils/index.js";
+import { Collection } from "../../converters/types.js";
+import { createContributionMonthsXYChart } from "./createContributionMonthXYChart.js";
+import { createTimelineMonthsXYChart } from "./createTimelineMonthXYChart.js";
+import { StatsType } from "./types.js";
 
 export const createTimelineMonthComparisonChart = (
   data: Record<string, Record<string, Collection>>,

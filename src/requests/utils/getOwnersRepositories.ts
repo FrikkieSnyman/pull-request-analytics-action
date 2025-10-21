@@ -1,4 +1,4 @@
-import { getMultipleValuesInput } from "../../common/utils";
+import { getMultipleValuesInput } from "../../common/utils/index.js";
 
 export const getOwnersRepositories = () => {
   const ownersRepositories = getMultipleValuesInput("GITHUB_OWNERS_REPOS")

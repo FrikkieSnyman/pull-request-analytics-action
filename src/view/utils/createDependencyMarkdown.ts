@@ -1,8 +1,8 @@
-import { getMultipleValuesInput } from "../../common/utils";
-import { Collection } from "../../converters";
-import { createReferences } from "./createReferences";
-import { createSizeDependencyXYChart } from "./createSizeDependencyXYChart";
-import { StatsType } from "./types";
+import { getMultipleValuesInput } from "../../common/utils/index.js";
+import { Collection } from "../../converters/index.js";
+import { createReferences } from "./createReferences.js";
+import { createSizeDependencyXYChart } from "./createSizeDependencyXYChart.js";
+import { StatsType } from "./types.js";
 
 export const createDependencyMarkdown = (
   data: Record<string, Record<string, Collection>>,

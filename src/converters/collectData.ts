@@ -1,9 +1,8 @@
 import { format, parseISO } from "date-fns";
-import set from "lodash/set";
-import get from "lodash/get";
+import {set, get} from "lodash";
 
-import { makeComplexRequest } from "../requests";
-import { Collection } from "./types";
+import { makeComplexRequest } from "../requests/index.js";
+import { Collection } from "./types.js";
 import {
   prepareReviews,
   prepareDiscussions,
@@ -13,7 +12,7 @@ import {
   prepareResponseTime,
   prepareRequestedReviews,
   prepareActionsTime,
-} from "./utils";
+} from "./utils/index.js";
 import {
   invalidUserLogin,
   invalidDate,
@@ -21,9 +20,9 @@ import {
   reviewedTimelineEvent,
   readyForReviewTimelineEvent,
   convertToDraftTimelineEvent,
-} from "./constants";
-import { checkUserInclusive, getPullRequestSize } from "./utils/calculations";
-import { getDateFormat } from "../common/utils";
+} from "./constants.js";
+import { checkUserInclusive, getPullRequestSize } from "./utils/calculations/index.js";
+import { getDateFormat } from "../common/utils/index.js";
 
 export const collectData = (
   data: Awaited<ReturnType<typeof makeComplexRequest>>,

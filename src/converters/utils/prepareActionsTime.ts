@@ -1,9 +1,9 @@
 import { getHours, parseISO } from "date-fns";
-import { makeComplexRequest } from "../../requests";
-import { Collection } from "../types";
+import { makeComplexRequest } from "../../requests/index.js";
+import { Collection } from "../types.js";
 import { get, set } from "lodash";
-import { invalidUserLogin, reviewedTimelineEvent } from "../constants";
-import { checkUserInclusive } from "./calculations";
+import { invalidUserLogin, reviewedTimelineEvent } from "../constants.js";
+import { checkUserInclusive } from "./calculations/index.js";
 
 export const prepareActionsTime = (
   pullRequest: Awaited<

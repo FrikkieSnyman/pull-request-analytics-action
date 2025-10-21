@@ -1,7 +1,7 @@
-export { getTeams } from "./getTeams";
-export { createComment } from "./createComment";
-export { clearComments } from "./clearComments";
-export { getOwnersRepositories } from "./utils/getOwnersRepositories";
-export { getOrganizationsRepositories } from "./getOrganizationsRepositories";
-export { makeComplexRequest } from "./makeComplexRequest";
-export { createIssue } from "./createIssue";
+export { getTeams } from "./getTeams.js";
+export { createComment } from "./createComment.js";
+export { clearComments } from "./clearComments.js";
+export { getOwnersRepositories } from "./utils/getOwnersRepositories.js";
+export { getOrganizationsRepositories } from "./getOrganizationsRepositories.js";
+export { makeComplexRequest } from "./makeComplexRequest.js";
+export { createIssue } from "./createIssue.js";

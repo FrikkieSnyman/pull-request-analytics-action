@@ -1,5 +1,5 @@
-import { Collection } from "../../converters";
-import { createXYChart } from "./common/createXYChart";
+import { Collection } from "../../converters/index.js";
+import { createXYChart } from "./common/createXYChart.js";
 
 export const createActivityXYChart = (
   data: Record<string, Record<string, Collection>>,

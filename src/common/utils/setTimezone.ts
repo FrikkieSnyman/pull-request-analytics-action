@@ -1,4 +1,4 @@
-import { getValueAsIs } from "./getValueAsIs";
+import { getValueAsIs } from "./getValueAsIs.js";
 
 export const setTimezone = () => {
   const timezone = getValueAsIs("TIMEZONE");

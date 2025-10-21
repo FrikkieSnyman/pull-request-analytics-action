@@ -1,11 +1,10 @@
-import set from "lodash/set";
-import get from "lodash/get";
+import {set, get} from "lodash";
 
-import { invalidUserLogin } from "../constants";
-import { Collection } from "../types";
-import { PullRequestSize } from "./calculations/getPullRequestSize";
-import { prepareConductedReviews } from "./prepareConductedReviews";
-import { checkUserInclusive } from "./calculations";
+import { invalidUserLogin } from "../constants.js";
+import { Collection } from "../types.js";
+import { PullRequestSize } from "./calculations/getPullRequestSize.js";
+import { prepareConductedReviews } from "./prepareConductedReviews.js";
+import { checkUserInclusive } from "./calculations/index.js";
 
 export const prepareReviews = (
   reviews: any[] = [],

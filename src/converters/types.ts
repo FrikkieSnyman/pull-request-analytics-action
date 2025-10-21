@@ -1,4 +1,4 @@
-import { PullRequestSize } from "./utils/calculations/getPullRequestSize";
+import { PullRequestSize } from "./utils/calculations/getPullRequestSize.js";
 
 type ReviewTypeStats = {
   [key: string]: number;

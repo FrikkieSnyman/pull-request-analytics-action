@@ -1,8 +1,8 @@
-export { preparePullRequestTimeline } from "./preparePullRequestTimeline";
-export { preparePullRequestStats } from "./preparePullRequestStats";
-export { preparePullRequestInfo } from "./preparePullRequestInfo";
-export { prepareDiscussions } from "./prepareDiscussions";
-export { prepareReviews } from "./prepareReviews";
-export { prepareResponseTime } from "./prepareResponseTime";
-export { prepareRequestedReviews } from "./prepareRequestedReviews";
-export { prepareActionsTime } from "./prepareActionsTime";
+export { preparePullRequestTimeline } from "./preparePullRequestTimeline.js";
+export { preparePullRequestStats } from "./preparePullRequestStats.js";
+export { preparePullRequestInfo } from "./preparePullRequestInfo.js";
+export { prepareDiscussions } from "./prepareDiscussions.js";
+export { prepareReviews } from "./prepareReviews.js";
+export { prepareResponseTime } from "./prepareResponseTime.js";
+export { prepareRequestedReviews } from "./prepareRequestedReviews.js";
+export { prepareActionsTime } from "./prepareActionsTime.js";

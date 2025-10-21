@@ -1,13 +1,13 @@
-import { Collection } from "../../converters/types";
+import { Collection } from "../../converters/types.js";
 import {
   commentsReceivedHeader,
   discussionsHeader,
   requestChangesReceived,
   totalMergedPrsHeader,
-} from "./constants";
-import { createTable, createList } from "./common";
-import { createDiscussionsPieChart } from "./createDiscussionsPieChart";
-import { getValueAsIs } from "../../common/utils";
+} from "./constants.js";
+import { createTable, createList } from "./common/index.js";
+import { createDiscussionsPieChart } from "./createDiscussionsPieChart.js";
+import { getValueAsIs } from "../../common/utils/index.js";
 
 export const createPullRequestQualityTable = (
   data: Record<string, Record<string, Collection>>,

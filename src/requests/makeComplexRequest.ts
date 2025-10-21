@@ -1,7 +1,7 @@
-import { getMultipleValuesInput } from "../common/utils";
-import { getDataWithThrottle } from "./getDataWithThrottle";
-import { getPullRequests } from "./getPullRequests";
-import { Options, Repository } from "./types";
+import { getMultipleValuesInput } from "../common/utils/index.js";
+import { getDataWithThrottle } from "./getDataWithThrottle.js";
+import { getPullRequests } from "./getPullRequests.js";
+import { Options, Repository } from "./types.js";
 
 export const makeComplexRequest = async (
   amount: number = 100,

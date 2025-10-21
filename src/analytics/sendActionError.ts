@@ -1,5 +1,5 @@
-import { encrypt, getMultipleValuesInput, getValueAsIs } from "../common/utils";
-import { mixpanel } from "./mixpanel";
+import { encrypt, getMultipleValuesInput, getValueAsIs } from "../common/utils/index.js";
+import { mixpanel } from "./mixpanel.js";
 
 export const sendActionError = (error: Error) => {
   if (getValueAsIs("ALLOW_ANALYTICS") === "true") {

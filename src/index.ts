@@ -1,22 +1,20 @@
 import "dotenv/config";
-import * as core from "@actions/core";
-
-import { createOutput } from "./createOutput";
+import { createOutput } from "./createOutput.js";
 import {
   getOrganizationsRepositories,
   getOwnersRepositories,
   makeComplexRequest,
   getTeams,
-} from "./requests";
-import { collectData } from "./converters";
+} from "./requests/index.js";
+import { collectData } from "./converters/index.js";
 import {
   checkCommentSkip,
   getOrgs,
   getValueAsIs,
   setTimezone,
-} from "./common/utils";
-import { getRateLimit } from "./requests/getRateLimit";
-import { sendActionError, sendActionRun } from "./analytics";
+} from "./common/utils/index.js";
+import { getRateLimit } from "./requests/getRateLimit.js";
+import { sendActionError, sendActionRun } from "./analytics/index.js";
 
 async function main() {
   try {

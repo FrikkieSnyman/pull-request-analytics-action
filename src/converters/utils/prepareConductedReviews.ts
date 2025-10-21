@@ -1,6 +1,6 @@
-import { Collection } from "../types";
-import { checkUserInclusive } from "./calculations";
-import { PullRequestSize } from "./calculations/getPullRequestSize";
+import { Collection } from "../types.js";
+import { checkUserInclusive } from "./calculations/index.js";
+import { PullRequestSize } from "./calculations/getPullRequestSize.js";
 
 export const prepareConductedReviews = (
   pullRequestLogin: string,

@@ -1,15 +1,15 @@
-import { Collection } from "../../converters/types";
+import { Collection } from "../../converters/types.js";
 import {
   timeInDraftHeader,
   timeToApproveHeader,
   timeToMergeHeader,
   timeToReviewHeader,
   timeToReviewRequestHeader,
-} from "./constants";
-import { createGanttBar } from "./common";
-import { StatsType } from "./types";
-import { formatMinutesDuration } from "./formatMinutesDuration";
-import { getValueAsIs } from "../../common/utils";
+} from "./constants.js";
+import { createGanttBar } from "./common/index.js";
+import { StatsType } from "./types.js";
+import { formatMinutesDuration } from "./formatMinutesDuration.js";
+import { getValueAsIs } from "../../common/utils/index.js";
 
 export const createTimelineGanttBar = (
   data: Record<string, Record<string, Collection>>,

@@ -1,6 +1,6 @@
-import { commonHeaders } from "./constants";
-import { octokit } from "../octokit";
-import { Repository } from "./types";
+import { commonHeaders } from "./constants.js";
+import { octokit } from "../octokit/index.js";
+import { Repository } from "./types.js";
 
 export const getIssueTimelineEvents = async (
   issueNumbers: number[],

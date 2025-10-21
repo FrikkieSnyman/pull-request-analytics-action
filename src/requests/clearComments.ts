@@ -1,6 +1,6 @@
-import { getValueAsIs } from "../common/utils";
-import { octokit } from "../octokit";
-import { commonHeaders } from "./constants";
+import { getValueAsIs } from "../common/utils/index.js";
+import { octokit } from "../octokit/index.js";
+import { commonHeaders } from "./constants.js";
 
 export const clearComments = async (issueNumber?: string) => {
   if (!issueNumber) return;

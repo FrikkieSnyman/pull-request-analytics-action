@@ -1,6 +1,6 @@
 import { differenceInMinutes, parseISO, setSeconds } from "date-fns";
-import { calcWeekendMinutes } from "./calcWeekendMinutes";
-import { CoreHours, calcNonWorkingHours } from "./calcNonWorkingHours";
+import { calcWeekendMinutes } from "./calcWeekendMinutes.js";
+import { CoreHours, calcNonWorkingHours } from "./calcNonWorkingHours.js";
 
 export const calcDifferenceInMinutes = (
   firstIsoDate: string | null | undefined,

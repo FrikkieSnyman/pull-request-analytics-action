@@ -1,5 +1,5 @@
-import { commonHeaders } from "./constants";
-import { octokit } from "../octokit";
+import { commonHeaders } from "./constants.js";
+import { octokit } from "../octokit/index.js";
 
 export const getTeams = async (orgs: string[]) => {
   const teams = await Promise.allSettled(

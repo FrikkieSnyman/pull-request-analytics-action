@@ -1,15 +1,15 @@
-import set from "lodash/set";
-import get from "lodash/get";
+import {set, get} from "lodash";
 
-import { getMultipleValuesInput, getValueAsIs } from "../../common/utils";
-import { makeComplexRequest } from "../../requests";
-import { Collection } from "../types";
+
+import { getMultipleValuesInput, getValueAsIs } from "../../common/utils/index.js";
+import { makeComplexRequest } from "../../requests/index.js";
+import { Collection } from "../types.js";
 import {
   calcDifferenceInMinutes,
   checkUserInclusive,
   getResponses,
-} from "./calculations";
-import { invalidUserLogin } from "../constants";
+} from "./calculations/index.js";
+import { invalidUserLogin } from "../constants.js";
 
 export const prepareResponseTime = (
   events: any[] | undefined | null = [],

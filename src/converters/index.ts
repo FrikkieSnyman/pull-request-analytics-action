@@ -1,2 +1,2 @@
-export { Collection } from './types';
-export { collectData } from "./collectData";
+export { Collection } from './types.js';
+export { collectData } from "./collectData.js";

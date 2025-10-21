@@ -27,6 +27,14 @@ This GitHub Action measures metrics for developers and/or teams. Reports are gen
 
 Overall, this action enables faster and more accurate assessments, leading to better decision-making.
 
+## Usage
+
+Create a .env file with [Configuration Parameters](#configuration-parameters-overview) set.
+
+```env
+yarn install && yarn build && yarn start
+```
+
 ## Metrics
 
 All metrics are presented in the form of tables, charts, and lists ([Report example](https://github.com/AlexSim93/pull-request-analytics-action/issues/16)). Below, you can see an example of such data.

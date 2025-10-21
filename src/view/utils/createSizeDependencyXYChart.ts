@@ -1,7 +1,7 @@
-import { Collection } from "../../converters/types";
-import { StatsType } from "./types";
-import { getValueAsIs } from "../../common/utils";
-import { createXYChart } from "./common/createXYChart";
+import { Collection } from "../../converters/types.js";
+import { StatsType } from "./types.js";
+import { getValueAsIs } from "../../common/utils/index.js";
+import { createXYChart } from "./common/createXYChart.js";
 const sizes = ["xs", "s", "m", "l", "xl"];
 
 export const createSizeDependencyXYChart = (

@@ -1,6 +1,6 @@
-import { createPieChart, createTable } from "./common";
-import { Collection } from "../../converters/types";
-import { getValueAsIs } from "../../common/utils";
+import { createPieChart, createTable } from "./common/index.js";
+import { Collection } from "../../converters/types.js";
+import { getValueAsIs } from "../../common/utils/index.js";
 
 const titleMap = {
   reviewTimeIntervals: "Review time",

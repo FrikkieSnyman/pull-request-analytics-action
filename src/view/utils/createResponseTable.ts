@@ -1,15 +1,15 @@
-import { Collection } from "../../converters/types";
+import { Collection } from "../../converters/types.js";
 import {
   reviewConductedHeader,
   reviewRequestConductedHeader,
   timeFromOpenToResponseHeader,
   timeFromRepeatedRequestToResponseHeader,
   timeFromRequestToResponseHeader,
-} from "./constants";
-import { createTable } from "./common";
-import { formatMinutesDuration } from "./formatMinutesDuration";
-import { StatsType } from "./types";
-import { getMultipleValuesInput, getValueAsIs } from "../../common/utils";
+} from "./constants.js";
+import { createTable } from "./common/index.js";
+import { formatMinutesDuration } from "./formatMinutesDuration.js";
+import { StatsType } from "./types.js";
+import { getMultipleValuesInput, getValueAsIs } from "../../common/utils/index.js";
 
 export const createResponseTable = (
   data: Record<string, Record<string, Collection>>,

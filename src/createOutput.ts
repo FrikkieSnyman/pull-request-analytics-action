@@ -1,23 +1,24 @@
-import * as core from "@actions/core";
-import { getMultipleValuesInput, getValueAsIs } from "./common/utils";
-import { Collection } from "./converters";
-import { createMarkdown } from "./view/";
-import { clearComments, createComment, createIssue } from "./requests";
+// import * as core from "@actions/core";
+import { getMultipleValuesInput, getValueAsIs } from "./common/utils/index.js";
+import { Collection } from "./converters/index.js";
+import { createMarkdown } from "./view/index.js";
+import { clearComments, createComment, createIssue } from "./requests/index.js";
 import {
   createDependencyMarkdown,
   createTimelineMonthComparisonChart,
   getDisplayUserList,
   sortCollectionsByDate,
-} from "./view/utils";
-import { octokit } from "./octokit";
-import { showStatsTypes } from "./common/constants";
-import { createActivityTimeMarkdown } from "./view/utils/createActivityTimeMarkdown";
+} from "./view/utils/index.js";
+import { octokit } from "./octokit/index.js";
+import { showStatsTypes } from "./common/constants.js";
+import { createActivityTimeMarkdown } from "./view/utils/createActivityTimeMarkdown.js";
+import fs from "fs";
 
 export const createOutput = async (
   data: Record<string, Record<string, Collection>>
 ) => {
   const outcomes = getMultipleValuesInput("EXECUTION_OUTCOME");
-  for (let outcome of outcomes) {
+  for ( let outcome of outcomes) {
     const users = getDisplayUserList(data);
     const dates = sortCollectionsByDate(data.total);
 
@@ -127,6 +128,23 @@ export const createOutput = async (
       );
     }
 
+    if (outcome === "file") {
+      const monthComparison = getMultipleValuesInput(
+        "SHOW_STATS_TYPES"
+      ).includes(showStatsTypes.timeline)
+        ? createTimelineMonthComparisonChart(data, dates, users)
+        : "";
+      const markdown = createMarkdown(data, users, dates).concat(
+        `\n${monthComparison}`
+      );
+      console.log("Markdown successfully generated.");
+      if (!fs.existsSync('reports')) {
+        fs.mkdirSync('reports');
+      }
+      fs.writeFileSync('reports/pull-requests-report.md', markdown, 'utf8');
+      console.log('Markdown file successfully written to pull-requests-report.md');
+    }
+
     if (outcome === "markdown") {
       const monthComparison = getMultipleValuesInput(
         "SHOW_STATS_TYPES"
@@ -137,10 +155,10 @@ export const createOutput = async (
         `\n${monthComparison}`
       );
       console.log("Markdown successfully generated.");
-      core.setOutput("MARKDOWN", markdown);
+      // core.setOutput("MARKDOWN", markdown);
     }
     if (outcome === "collection") {
-      core.setOutput("JSON_COLLECTION", JSON.stringify(data));
+      // core.setOutput("JSON_COLLECTION", JSON.stringify(data));
     }
   }
 };

@@ -1,15 +1,15 @@
-import { getMultipleValuesInput, getValueAsIs } from "../../common/utils";
-import { makeComplexRequest } from "../../requests";
-import { invalidUserLogin } from "../constants";
-import { Collection } from "../types";
+import { getMultipleValuesInput, getValueAsIs } from "../../common/utils/index.js";
+import { makeComplexRequest } from "../../requests/index.js";
+import { invalidUserLogin } from "../constants.js";
+import { Collection } from "../types.js";
 import {
   calcDraftTime,
   checkUserInclusive,
   getApproveTime,
   getPullRequestSize,
-} from "./calculations";
-import { calcDifferenceInMinutes } from "./calculations/calcDifferenceInMinutes";
-import { calcPRsize } from "./calculations/calcPRsize";
+} from "./calculations/index.js";
+import { calcDifferenceInMinutes } from "./calculations/calcDifferenceInMinutes.js";
+import { calcPRsize } from "./calculations/calcPRsize.js";
 
 export const preparePullRequestTimeline = (
   pullRequestInfo: Awaited<

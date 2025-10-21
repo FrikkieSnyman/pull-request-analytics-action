@@ -1,12 +1,12 @@
-import { getMultipleValuesInput } from "../../common/utils";
-import { Collection } from "../types";
+import { getMultipleValuesInput } from "../../common/utils/index.js";
+import { Collection } from "../types.js";
 import {
   calcAverageValue,
   calcIntervals,
   calcMedianValue,
   calcPercentileValue,
   prepareIntervals,
-} from "./calculations";
+} from "./calculations/index.js";
 
 export const preparePullRequestStats = (collection: Collection) => {
   const reviewIntervals = prepareIntervals(

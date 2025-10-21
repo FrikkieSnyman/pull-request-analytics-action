@@ -1,7 +1,7 @@
 import {
   convertToDraftTimelineEvent,
   readyForReviewTimelineEvent,
-} from "../../constants";
+} from "../../constants.js";
 
 export const calcDraftTime = (
   createdAt: string | undefined,

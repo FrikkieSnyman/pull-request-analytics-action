@@ -1,12 +1,12 @@
-import { Collection } from "../../converters/types";
+import { Collection } from "../../converters/types.js";
 import {
   commentsConductedHeader,
   discussionsConductedHeader,
   prSizesHeader,
   reviewConductedHeader,
   reviewTypesHeader,
-} from "./constants";
-import { createTable } from "./common";
+} from "./constants.js";
+import { createTable } from "./common/index.js";
 
 export const createReviewTable = (
   data: Record<string, Record<string, Collection>>,

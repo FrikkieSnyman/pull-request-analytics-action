@@ -1,11 +1,11 @@
-import set from "lodash/set";
-import get from "lodash/get";
+import {set, get} from "lodash";
 
-import { makeComplexRequest } from "../../requests";
-import { invalidUserLogin } from "../constants";
-import { Collection } from "../types";
-import { getDiscussionType } from "./getDiscussionType";
-import { checkUserInclusive } from "./calculations";
+
+import { makeComplexRequest } from "../../requests/index.js";
+import { invalidUserLogin } from "../constants.js";
+import { Collection } from "../types.js";
+import { getDiscussionType } from "./getDiscussionType.js";
+import { checkUserInclusive } from "./calculations/index.js";
 
 export const prepareDiscussions = (
   comments: Awaited<ReturnType<typeof makeComplexRequest>>["comments"],

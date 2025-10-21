@@ -1,32 +1,42 @@
 import { Octokit } from "octokit";
-import * as core from "@actions/core";
+// import * as core from "@actions/core";
 import { throttling } from "@octokit/plugin-throttling";
-import { getValueAsIs } from "../common/utils";
+import { getValueAsIs } from "../common/utils/index.js";
 
-Octokit.plugin(throttling);
+const ThrottledOctokit = Octokit.plugin(throttling);
 
 const defaultBaseUrl = "https://api.github.com";
 
-export const octokit = new Octokit({
+export const octokit = new ThrottledOctokit({
   baseUrl: process.env["GITHUB_API_URL"] || defaultBaseUrl,
   auth: getValueAsIs("GITHUB_TOKEN"),
   throttle: {
-    onSecondaryRateLimit: (_, options) => {
+    onSecondaryRateLimit: (retryAfter, options, octokit, retryCount) => {
       octokit.log.error(
-        `SecondaryRateLimit detected for request ${options.method} ${options.url}`
+        `SecondaryRateLimit detected for request ${options.method} ${options.url}. ${retryCount} retries.`
       );
-      core.setFailed(
-        `SecondaryRateLimit detected for request ${options.method} ${options.url}`
-      );
+      if (retryCount < 2) {
+        // only retries twice
+        octokit.log.info(`Retrying after ${retryAfter} seconds! ${retryCount} retries.`);
+        return true;
+      }
+      // core.setFailed(
+      //   `SecondaryRateLimit detected for request ${options.method} ${options.url}`
+      // );
       throw `SecondaryRateLimit detected for request ${options.method} ${options.url}`;
     },
-    onRateLimit: (_, options) => {
+    onRateLimit: (retryAfter, options, octokit, retryCount) => {
       octokit.log.error(
-        `Request quota exhausted for request ${options.method} ${options.url}`
+        `Request quota exhausted for request ${options.method} ${options.url}. ${retryCount} retries.`
       );
-      core.setFailed(
-        `Request quota exhausted for request ${options.method} ${options.url}`
-      );
+      if (retryCount < 2) {
+        // only retries twice
+        octokit.log.info(`Retrying after ${retryAfter} seconds! ${retryCount} retries.`);
+        return true;
+      }
+      // core.setFailed(
+      //   `Request quota exhausted for request ${options.method} ${options.url}`
+      // );
       throw `Request quota exhausted for request ${options.method} ${options.url}`;
     },
     enabled: true,

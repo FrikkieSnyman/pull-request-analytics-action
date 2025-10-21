@@ -1,11 +1,11 @@
-import { getMultipleValuesInput, getValueAsIs } from "../../common/utils";
-import { Collection } from "../../converters/types";
-import { createList } from "./common";
-import { createTimelineGanttBar } from "./createTimelineGanttBar";
-import { createTimelineTable } from "./createTimelineTable";
-import { StatsType } from "./types";
-import { formatMinutesDuration } from "./formatMinutesDuration";
-import { createTimelinePieChart } from "./createTimelinePieChart";
+import { getMultipleValuesInput, getValueAsIs } from "../../common/utils/index.js";
+import { Collection } from "../../converters/types.js";
+import { createList } from "./common/index.js";
+import { createTimelineGanttBar } from "./createTimelineGanttBar.js";
+import { createTimelineTable } from "./createTimelineTable.js";
+import { StatsType } from "./types.js";
+import { formatMinutesDuration } from "./formatMinutesDuration.js";
+import { createTimelinePieChart } from "./createTimelinePieChart.js";
 
 type Type = "timeToReview" | "timeToApprove" | "timeToMerge";
 

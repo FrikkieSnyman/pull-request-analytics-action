@@ -1,2 +1,2 @@
-export { getReportDates } from "./getReportDates";
-export { getOwnersRepositories } from "./getOwnersRepositories";
+export { getReportDates } from "./getReportDates.js";
+export { getOwnersRepositories } from "./getOwnersRepositories.js";

@@ -1,10 +1,10 @@
-import { checkCommentSkip } from "../common/utils";
-import { concurrentLimit } from "./constants";
-import { delay } from "./delay";
-import { getIssueTimelineEvents } from "./getIssueTimelineEvents";
-import { getPullRequestComments } from "./getPullRequestComments";
-import { getPullRequestDatas } from "./getPullRequestData";
-import { Options, Repository } from "./types";
+import { checkCommentSkip } from "../common/utils/index.js";
+import { concurrentLimit } from "./constants.js";
+import { delay } from "./delay.js";
+import { getIssueTimelineEvents } from "./getIssueTimelineEvents.js";
+import { getPullRequestComments } from "./getPullRequestComments.js";
+import { getPullRequestDatas } from "./getPullRequestData.js";
+import { Options, Repository } from "./types.js";
 
 export const getDataWithThrottle = async (
   pullRequestNumbers: number[],

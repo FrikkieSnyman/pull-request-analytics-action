@@ -1,9 +1,9 @@
-import { commonHeaders } from "./constants";
+import { commonHeaders } from "./constants.js";
 import { isAfter, isBefore, parseISO } from "date-fns";
 
-import { octokit } from "../octokit";
-import { getReportDates } from "./utils";
-import { Repository } from "./types";
+import { octokit } from "../octokit/index.js";
+import { getReportDates } from "./utils/index.js";
+import { Repository } from "./types.js";
 
 export const getPullRequests = async (
   amount: number = 10,

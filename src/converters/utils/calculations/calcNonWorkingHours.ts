@@ -5,8 +5,8 @@ import {
   setHours,
   setMinutes,
 } from "date-fns";
-import { isHoliday } from "./isHoliday";
-import { checkWeekend } from "./checkWeekend";
+import { isHoliday } from "./isHoliday.js";
+import { checkWeekend } from "./checkWeekend.js";
 
 export type CoreHours = {
   startOfWorkingTime: string;

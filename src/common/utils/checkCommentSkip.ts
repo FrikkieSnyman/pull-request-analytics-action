@@ -1,5 +1,5 @@
-import { showStatsTypes } from "../constants";
-import { getMultipleValuesInput } from "./getMultipleValuesInput";
+import { showStatsTypes } from "../constants.js";
+import { getMultipleValuesInput } from "./getMultipleValuesInput.js";
 
 export const checkCommentSkip = () => {
   return ![

@@ -3,8 +3,8 @@ import {
   reviewRequestRemoved,
   reviewRequestedTimelineEvent,
   reviewedTimelineEvent,
-} from "../../constants";
-import { checkUserInclusive } from "./checkUserInclusive";
+} from "../../constants.js";
+import { checkUserInclusive } from "./checkUserInclusive.js";
 
 export const getResponses = (events: any[] | undefined | null = []) => {
   return events?.reduce((acc, event) => {

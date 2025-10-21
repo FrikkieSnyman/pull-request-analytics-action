@@ -1,4 +1,4 @@
-import { getMultipleValuesInput } from "./getMultipleValuesInput";
+import { getMultipleValuesInput } from "./getMultipleValuesInput.js";
 
 export const getOrgs = () => {
   const orgs = getMultipleValuesInput("ORGANIZATIONS");

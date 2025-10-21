@@ -1,4 +1,4 @@
-import { calcPRsize } from "./calcPRsize";
+import { calcPRsize } from "./calcPRsize.js";
 
 export type PullRequestSize = "xs" | "s" | "m" | "l" | "xl";
 

@@ -1,4 +1,4 @@
-import { Collection } from "../../converters/types";
+import { Collection } from "../../converters/types.js";
 import {
   additionsDeletionsHeader,
   prSizesHeader,
@@ -7,9 +7,9 @@ import {
   totalRevertedPrsHeader,
   unapprovedPrsHeader,
   unreviewedPrsHeader,
-} from "./constants";
-import { createList, createTable } from "./common";
-import { getValueAsIs } from "../../common/utils";
+} from "./constants.js";
+import { createList, createTable } from "./common/index.js";
+import { getValueAsIs } from "../../common/utils/index.js";
 
 export const createTotalTable = (
   data: Record<string, Record<string, Collection>>,

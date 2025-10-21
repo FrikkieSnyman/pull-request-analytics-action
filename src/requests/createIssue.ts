@@ -1,7 +1,7 @@
-import { commonHeaders } from "./constants";
-import { octokit } from "../octokit";
+import { commonHeaders } from "./constants.js";
+import { octokit } from "../octokit/index.js";
 import { format } from "date-fns";
-import { getMultipleValuesInput, getValueAsIs } from "../common/utils";
+import { getMultipleValuesInput, getValueAsIs } from "../common/utils/index.js";
 
 export const createIssue = async (
   markdown: string,

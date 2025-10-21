@@ -1,4 +1,4 @@
-import { getValueAsIs } from "../../common/utils";
+import { getValueAsIs } from "../../common/utils/index.js";
 
 export const createConfigParamsCode = () => {
   return `

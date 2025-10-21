@@ -1,1 +1,1 @@
-export { octokit } from "./octokit";
+export { octokit } from "./octokit.js";

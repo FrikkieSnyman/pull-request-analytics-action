@@ -1,6 +1,6 @@
-import { Collection } from "../../converters";
-import { createActivityXYChart } from "./createActivityXYChart";
-import { createReferences } from "./createReferences";
+import { Collection } from "../../converters/index.js";
+import { createActivityXYChart } from "./createActivityXYChart.js";
+import { createReferences } from "./createReferences.js";
 
 export const createActivityTimeMarkdown = (
   data: Record<string, Record<string, Collection>>,

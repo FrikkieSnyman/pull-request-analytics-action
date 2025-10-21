@@ -1,4 +1,4 @@
-import { deletionCoefficient } from "./constants";
+import { deletionCoefficient } from "./constants.js";
 
 export const calcPRsize = (
   additions: number | undefined,

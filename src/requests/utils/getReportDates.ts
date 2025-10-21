@@ -1,5 +1,5 @@
 import { parse, sub } from "date-fns";
-import { getMultipleValuesInput, getValueAsIs } from "../../common/utils";
+import { getMultipleValuesInput, getValueAsIs } from "../../common/utils/index.js";
 
 export const getReportDates = () => {
   const startReportDate = getValueAsIs("REPORT_DATE_START");

@@ -1,4 +1,4 @@
-import { Collection } from "../converters/types";
+import { Collection } from "../converters/types.js";
 import {
   createConfigParamsCode,
   createPullRequestQualityTable,
@@ -7,8 +7,8 @@ import {
   createReviewTable,
   createTimelineContent,
   createTotalTable,
-} from "./utils";
-import { getMultipleValuesInput } from "../common/utils";
+} from "./utils/index.js";
+import { getMultipleValuesInput } from "../common/utils/index.js";
 
 export const createMarkdown = (
   data: Record<string, Record<string, Collection>>,

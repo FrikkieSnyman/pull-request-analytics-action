@@ -1,7 +1,7 @@
-import { makeComplexRequest } from "../../requests";
-import { Collection } from "../types";
-import { getPullRequestSize } from "./calculations";
-import { checkRevert } from "./checkRevert";
+import { makeComplexRequest } from "../../requests/index.js";
+import { Collection } from "../types.js";
+import { getPullRequestSize } from "./calculations/index.js";
+import { checkRevert } from "./checkRevert.js";
 
 export const preparePullRequestInfo = (
   pullRequest: Awaited<
