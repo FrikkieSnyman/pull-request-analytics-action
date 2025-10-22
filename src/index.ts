@@ -1,5 +1,5 @@
 import "dotenv/config";
-import * as core from "@actions/core";
+// import * as core from "@actions/core";
 
 import { createOutput } from "./createOutput";
 import {
@@ -26,9 +26,10 @@ async function main() {
     sendActionRun();
 
     if (Object.entries(errors).length > 0) {
-      core.setFailed(
-        "Inputs are invalid. Action is failed with validation error"
-      );
+      console.error("Inputs are invalid. Action is failed with validation error", JSON.stringify(errors, null, 2));
+      // core.setFailed(
+      //   "Inputs are invalid. Action is failed with validation error"
+      // );
       return;
     }
     const rateLimitAtBeginning = await getRateLimit();

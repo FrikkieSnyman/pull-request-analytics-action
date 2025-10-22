@@ -1,4 +1,4 @@
-import * as core from "@actions/core";
+// import * as core from "@actions/core";
 import { getMultipleValuesInput, getValueAsIs } from "./common/utils";
 import { Collection } from "./converters";
 import { createMarkdown } from "./view/";
@@ -10,7 +10,8 @@ import {
 } from "./view/utils";
 import { octokit } from "./octokit";
 import { showStatsTypes } from "./common/constants";
-
+import fs from "fs";
+import { format } from "date-fns";
 export const createOutput = async (
   data: Record<string, Record<string, Collection>>
 ) => {
@@ -89,6 +90,23 @@ export const createOutput = async (
       );
     }
 
+    if (outcome === "file") {
+      const monthComparison = getMultipleValuesInput(
+        "SHOW_STATS_TYPES"
+      ).includes(showStatsTypes.timeline)
+        ? createTimelineMonthComparisonChart(data, dates, users)
+        : "";
+      const markdown = createMarkdown(data, users, dates).concat(
+        `\n${monthComparison}`
+      );
+      console.log("Markdown successfully generated.");
+      if (!fs.existsSync('reports')) {
+        fs.mkdirSync('reports');
+      }
+      fs.writeFileSync(`reports/pull-requests-report-${format(new Date(), "dMMyyHH:mm")}.md`, markdown, 'utf8');
+      console.log('Markdown file successfully written to pull-requests-report.md');
+    }
+
     if (outcome === "markdown") {
       const monthComparison = getMultipleValuesInput(
         "SHOW_STATS_TYPES"
@@ -99,10 +117,10 @@ export const createOutput = async (
         `\n${monthComparison}`
       );
       console.log("Markdown successfully generated.");
-      core.setOutput("MARKDOWN", markdown);
+      // core.setOutput("MARKDOWN", markdown);
     }
     if (outcome === "collection") {
-      core.setOutput("JSON_COLLECTION", JSON.stringify(data));
+      // core.setOutput("JSON_COLLECTION", JSON.stringify(data));
     }
   }
 };

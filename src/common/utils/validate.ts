@@ -1,4 +1,4 @@
-import * as core from "@actions/core";
+// import * as core from "@actions/core";
 import {
   validateDate,
   validateNumber,
@@ -36,7 +36,7 @@ export const validate = () => {
         required: false,
       },
       EXECUTION_OUTCOME: {
-        validValues: ["new-issue", "collection", "markdown", "existing-issue"],
+        validValues: ["new-issue", "collection", "markdown", "existing-issue", "file"],
         required: true,
       },
     });
@@ -86,11 +86,11 @@ export const validate = () => {
     ...singleValueWarnings,
     ...numbersWarnings,
   };
-  Object.values(errors).forEach((message) => {
-    core.error(message as string);
-  });
-  Object.values(warnings).forEach((message) => {
-    core.warning(message as string);
-  });
+  // Object.values(errors).forEach((message) => {
+  //   core.error(message as string);
+  // });
+  // Object.values(warnings).forEach((message) => {
+  //   core.warning(message as string);
+  // });
   return errors;
 };
