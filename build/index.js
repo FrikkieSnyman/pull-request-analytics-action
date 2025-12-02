@@ -78,6 +78,8 @@ const sendActionError = (error) => {
             USE_CHARTS: (0, utils_1.getValueAsIs)("USE_CHARTS"),
             SHOW_CORRELATION_GRAPHS: (0, utils_1.getValueAsIs)("SHOW_CORRELATION_GRAPHS"),
             SHOW_ACTIVITY_TIME_GRAPHS: (0, utils_1.getValueAsIs)("SHOW_ACTIVITY_TIME_GRAPHS"),
+            FILTER_HEAD_BRANCHES: !!(0, utils_1.getValueAsIs)("FILTER_HEAD_BRANCHES"),
+            FILTER_BASE_BRANCHES: !!(0, utils_1.getValueAsIs)("FILTER_BASE_BRANCHES"),
         });
     }
     else {
@@ -138,6 +140,8 @@ const sendActionRun = () => {
             USE_CHARTS: (0, utils_1.getValueAsIs)("USE_CHARTS"),
             SHOW_CORRELATION_GRAPHS: (0, utils_1.getValueAsIs)("SHOW_CORRELATION_GRAPHS"),
             SHOW_ACTIVITY_TIME_GRAPHS: (0, utils_1.getValueAsIs)("SHOW_ACTIVITY_TIME_GRAPHS"),
+            FILTER_HEAD_BRANCHES: !!(0, utils_1.getValueAsIs)("FILTER_HEAD_BRANCHES"),
+            FILTER_BASE_BRANCHES: !!(0, utils_1.getValueAsIs)("FILTER_BASE_BRANCHES"),
         });
     }
     else {
@@ -2419,23 +2423,17 @@ exports.makeComplexRequest = void 0;
 const utils_1 = __nccwpck_require__(41002);
 const getDataWithThrottle_1 = __nccwpck_require__(17227);
 const getPullRequests_1 = __nccwpck_require__(21341);
+const utils_2 = __nccwpck_require__(50426);
 const makeComplexRequest = async (amount = 100, repository, options = {
     skipComments: true,
 }) => {
     const pullRequests = await (0, getPullRequests_1.getPullRequests)(amount, repository);
-    const pullRequestNumbers = pullRequests
-        .filter((pr) => {
-        const excludeLabels = (0, utils_1.getMultipleValuesInput)("EXCLUDE_LABELS");
-        const includeLabels = (0, utils_1.getMultipleValuesInput)("INCLUDE_LABELS");
-        const isIncludeLabelsCorrect = includeLabels.length > 0
-            ? pr.labels.some((label) => includeLabels.includes(label.name))
-            : true;
-        const isExcludeLabelsCorrect = excludeLabels.length > 0
-            ? !pr.labels.some((label) => excludeLabels.includes(label.name))
-            : true;
-        return isIncludeLabelsCorrect && isExcludeLabelsCorrect;
-    })
-        .map((item) => item.number);
+    const pullRequestNumbers = (0, utils_2.filterPRs)(pullRequests, {
+        excludeLabels: (0, utils_1.getMultipleValuesInput)("EXCLUDE_LABELS"),
+        includeLabels: (0, utils_1.getMultipleValuesInput)("INCLUDE_LABELS"),
+        filterHeadBranchesPattern: (0, utils_1.getValueAsIs)("FILTER_HEAD_BRANCHES"),
+        filterBaseBranchesPattern: (0, utils_1.getValueAsIs)("FILTER_BASE_BRANCHES"),
+    });
     const { PRs, PREvents, PRComments } = await (0, getDataWithThrottle_1.getDataWithThrottle)(pullRequestNumbers, repository, options);
     const events = PREvents.map((element) => element.status === "fulfilled" ? element.value.data : null);
     const pullRequestInfo = PRs.map((element) => element.status === "fulfilled" ? element.value.data : null);
@@ -2448,6 +2446,40 @@ const makeComplexRequest = async (amount = 100, repository, options = {
     };
 };
 exports.makeComplexRequest = makeComplexRequest;
+
+
+/***/ }),
+
+/***/ 13975:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.filterPRs = void 0;
+const filterPRs = (pullRequests, { excludeLabels, includeLabels, filterHeadBranchesPattern, filterBaseBranchesPattern, }) => {
+    return pullRequests
+        .filter((pr) => {
+        const isIncludeLabelsCorrect = includeLabels.length > 0
+            ? pr.labels.some((label) => includeLabels.includes(label.name))
+            : true;
+        const isExcludeLabelsCorrect = excludeLabels.length > 0
+            ? !pr.labels.some((label) => excludeLabels.includes(label.name))
+            : true;
+        const isFilterHeadBranchesCorrect = filterHeadBranchesPattern.length > 0
+            ? new RegExp(filterHeadBranchesPattern).test(pr.head.ref)
+            : true;
+        const isFilterBaseBranchesCorrect = filterBaseBranchesPattern.length > 0
+            ? new RegExp(filterBaseBranchesPattern).test(pr.base.ref)
+            : true;
+        return (isIncludeLabelsCorrect &&
+            isExcludeLabelsCorrect &&
+            isFilterHeadBranchesCorrect &&
+            isFilterBaseBranchesCorrect);
+    })
+        .map((item) => item.number);
+};
+exports.filterPRs = filterPRs;
 
 
 /***/ }),
@@ -2513,11 +2545,13 @@ exports.getReportDates = getReportDates;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getOwnersRepositories = exports.getReportDates = void 0;
+exports.filterPRs = exports.getOwnersRepositories = exports.getReportDates = void 0;
 var getReportDates_1 = __nccwpck_require__(30183);
 Object.defineProperty(exports, "getReportDates", ({ enumerable: true, get: function () { return getReportDates_1.getReportDates; } }));
 var getOwnersRepositories_1 = __nccwpck_require__(57288);
 Object.defineProperty(exports, "getOwnersRepositories", ({ enumerable: true, get: function () { return getOwnersRepositories_1.getOwnersRepositories; } }));
+var filterPRs_1 = __nccwpck_require__(13975);
+Object.defineProperty(exports, "filterPRs", ({ enumerable: true, get: function () { return filterPRs_1.filterPRs; } }));
 
 
 /***/ }),
@@ -2917,6 +2951,8 @@ ${[
         "USE_CHARTS",
         "INCLUDE_LABELS",
         "EXCLUDE_LABELS",
+        "FILTER_HEAD_BRANCHES",
+        "FILTER_BASE_BRANCHES",
         "INCLUDE_USERS",
         "EXCLUDE_USERS",
         "EXECUTION_OUTCOME",

@@ -1,7 +1,8 @@
-import { getMultipleValuesInput } from "../common/utils";
+import { getMultipleValuesInput, getValueAsIs } from "../common/utils";
 import { getDataWithThrottle } from "./getDataWithThrottle";
 import { getPullRequests } from "./getPullRequests";
 import { Options, Repository } from "./types";
+import { filterPRs } from "./utils";
 
 export const makeComplexRequest = async (
   amount: number = 100,
@@ -12,21 +13,12 @@ export const makeComplexRequest = async (
 ) => {
   const pullRequests = await getPullRequests(amount, repository);
 
-  const pullRequestNumbers = pullRequests
-    .filter((pr) => {
-      const excludeLabels = getMultipleValuesInput("EXCLUDE_LABELS");
-      const includeLabels = getMultipleValuesInput("INCLUDE_LABELS");
-      const isIncludeLabelsCorrect =
-        includeLabels.length > 0
-          ? pr.labels.some((label) => includeLabels.includes(label.name))
-          : true;
-      const isExcludeLabelsCorrect =
-        excludeLabels.length > 0
-          ? !pr.labels.some((label) => excludeLabels.includes(label.name))
-          : true;
-      return isIncludeLabelsCorrect && isExcludeLabelsCorrect;
-    })
-    .map((item) => item.number);
+  const pullRequestNumbers = filterPRs(pullRequests, {
+    excludeLabels: getMultipleValuesInput("EXCLUDE_LABELS"),
+    includeLabels: getMultipleValuesInput("INCLUDE_LABELS"),
+    filterHeadBranchesPattern: getValueAsIs("FILTER_HEAD_BRANCHES"),
+    filterBaseBranchesPattern: getValueAsIs("FILTER_BASE_BRANCHES"),
+  });
 
   const { PRs, PREvents, PRComments } = await getDataWithThrottle(
     pullRequestNumbers,

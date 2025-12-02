@@ -100,6 +100,12 @@ inputs:
   EXCLUDE_LABELS:
     description: "Excludes PRs with mentioned labels. Values should be separated by comma"
     required: false
+  FILTER_HEAD_BRANCHES:
+    description: "Includes only PRs from head branches matching the specified regular expression pattern"
+    required: false
+  FILTER_BASE_BRANCHES:
+    description: "Includes only PRs to base branches matching the specified regular expression pattern"
+    required: false
   INCLUDE_USERS:
     description: "Only data for the specified users will be included in the report. Multiple values should be separated by commas"
     required: false
