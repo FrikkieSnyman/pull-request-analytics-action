@@ -307,7 +307,7 @@ Below is a table describing the possible outputs of **pull-request-analytics-act
 - To hide individual metrics, specify users in the `HIDE_USERS` parameter or leave `total` and GitHub team names in the `SHOW_USERS` parameter.
 - To avoid a long list of title changes when updating an existing issue, it is recommended to set the title yourself using the `ISSUE_TITLE` parameter.
 - You can filter pull requests using labels with the `EXCLUDE_LABELS` and `INCLUDE_LABELS` parameters.
-- You can filter pull requests by both source (head) and target (base) branches using the `EXCLUDE_HEAD_BRANCHES`, `INCLUDE_HEAD_BRANCHES`, `EXCLUDE_BASE_BRANCHES`, and `INCLUDE_BASE_BRANCHES` parameters. These parameters accept regular expression patterns for flexible filtering. Note that exclude filters always take priority over include filters.
+- You can filter pull requests by both source (head) and target (base) branches using the `FILTER_HEAD_BRANCHES` and `FILTER_BASE_BRANCHES` parameters. These parameters accept regular expression patterns for flexible filtering. Note that exclude filters always take priority over include filters.
 
 ## Troubleshooting
 
