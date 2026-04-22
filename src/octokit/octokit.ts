@@ -11,19 +11,29 @@ export const octokit = new Octokit({
   baseUrl: process.env["GITHUB_API_URL"] || defaultBaseUrl,
   auth: getValueAsIs("GITHUB_TOKEN"),
   throttle: {
-    onSecondaryRateLimit: (_, options) => {
+    onSecondaryRateLimit: (retryAfter, options, octokit, retryCount) => {
       octokit.log.error(
-        `SecondaryRateLimit detected for request ${options.method} ${options.url}`
+        `SecondaryRateLimit detected for request ${options.method} ${options.url}. ${retryCount} retries, retry after ${retryAfter} seconds.`
       );
+      if (retryCount < 2) {
+        // only retries twice
+        octokit.log.info(`Retrying after ${retryAfter} seconds! ${retryCount} retries.`);
+        return true;
+      }
       setFailed(
         `SecondaryRateLimit detected for request ${options.method} ${options.url}`
       );
       throw `SecondaryRateLimit detected for request ${options.method} ${options.url}`;
     },
-    onRateLimit: (_, options) => {
+    onRateLimit: (retryAfter, options, octokit, retryCount) => {
       octokit.log.error(
-        `Request quota exhausted for request ${options.method} ${options.url}`
+        `Request quota exhausted for request ${options.method} ${options.url}. ${retryCount} retries, retry after ${retryAfter} seconds.`
       );
+      if (retryCount < 2) {
+        // only retries twice
+        octokit.log.info(`Retrying after ${retryAfter} seconds! ${retryCount} retries.`);
+        return true;
+      }
       setFailed(
         `Request quota exhausted for request ${options.method} ${options.url}`
       );
