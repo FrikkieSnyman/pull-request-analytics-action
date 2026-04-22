@@ -1,4 +1,5 @@
-import { getValueAsIs } from "./getValueAsIs";
+import { getValueAsIs } from "./env";
+
 
 export const setTimezone = () => {
   const timezone = getValueAsIs("TIMEZONE");

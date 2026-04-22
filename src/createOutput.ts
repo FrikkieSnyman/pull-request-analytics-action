@@ -1,5 +1,5 @@
-import * as core from "@actions/core";
-import { getMultipleValuesInput, getValueAsIs } from "./common/utils";
+
+import { getMultipleValuesInput, getValueAsIs, setOutput } from "./common/utils";
 import { Collection } from "./converters";
 import { createMarkdown } from "./view/";
 import { clearComments, createComment, createIssue } from "./requests";
@@ -137,10 +137,10 @@ export const createOutput = async (
         `\n${monthComparison}`
       );
       console.log("Markdown successfully generated.");
-      core.setOutput("MARKDOWN", markdown);
+      setOutput("MARKDOWN", markdown);
     }
     if (outcome === "collection") {
-      core.setOutput("JSON_COLLECTION", JSON.stringify(data));
+      setOutput("JSON_COLLECTION", JSON.stringify(data));
     }
   }
 };

@@ -1,5 +1,4 @@
 import "dotenv/config";
-import * as core from "@actions/core";
 
 import { createOutput } from "./createOutput";
 import {

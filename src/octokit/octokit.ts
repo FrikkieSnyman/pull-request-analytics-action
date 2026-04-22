@@ -1,7 +1,7 @@
 import { Octokit } from "octokit";
-import * as core from "@actions/core";
 import { throttling } from "@octokit/plugin-throttling";
 import { getValueAsIs } from "../common/utils";
+import { setFailed } from "../common/utils/env";
 
 Octokit.plugin(throttling);
 
@@ -15,7 +15,7 @@ export const octokit = new Octokit({
       octokit.log.error(
         `SecondaryRateLimit detected for request ${options.method} ${options.url}`
       );
-      core.setFailed(
+      setFailed(
         `SecondaryRateLimit detected for request ${options.method} ${options.url}`
       );
       throw `SecondaryRateLimit detected for request ${options.method} ${options.url}`;
@@ -24,7 +24,7 @@ export const octokit = new Octokit({
       octokit.log.error(
         `Request quota exhausted for request ${options.method} ${options.url}`
       );
-      core.setFailed(
+      setFailed(
         `Request quota exhausted for request ${options.method} ${options.url}`
       );
       throw `Request quota exhausted for request ${options.method} ${options.url}`;

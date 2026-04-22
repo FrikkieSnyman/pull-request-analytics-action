@@ -1,4 +1,4 @@
-import { getMultipleValuesInput } from "./getMultipleValuesInput";
+import { getMultipleValuesInput } from "./env";
 
 export const getOrgs = () => {
   const orgs = getMultipleValuesInput("ORGANIZATIONS");

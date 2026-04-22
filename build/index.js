@@ -209,12 +209,12 @@ exports.periodSplitUnit = {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.checkCommentSkip = void 0;
 const constants_1 = __nccwpck_require__(11140);
-const getMultipleValuesInput_1 = __nccwpck_require__(31437);
+const env_1 = __nccwpck_require__(2171);
 const checkCommentSkip = () => {
     return ![
         constants_1.showStatsTypes["pr-quality"],
         constants_1.showStatsTypes["code-review-engagement"],
-    ].some((block) => (0, getMultipleValuesInput_1.getMultipleValuesInput)("SHOW_STATS_TYPES").includes(block));
+    ].some((block) => (0, env_1.getMultipleValuesInput)("SHOW_STATS_TYPES").includes(block));
 };
 exports.checkCommentSkip = checkCommentSkip;
 
@@ -238,25 +238,7 @@ exports.encrypt = encrypt;
 
 /***/ }),
 
-/***/ 15010:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getDateFormat = void 0;
-const getValueAsIs_1 = __nccwpck_require__(18863);
-const constants_1 = __nccwpck_require__(11140);
-const getDateFormat = () => {
-    const input = (0, getValueAsIs_1.getValueAsIs)("PERIOD_SPLIT_UNIT");
-    return constants_1.dateFormats[input];
-};
-exports.getDateFormat = getDateFormat;
-
-
-/***/ }),
-
-/***/ 31437:
+/***/ 2171:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -285,16 +267,69 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getMultipleValuesInput = void 0;
+exports.setFailed = exports.getValueAsIs = exports.getMultipleValuesInput = exports.setOutput = void 0;
 const core = __importStar(__nccwpck_require__(42186));
+function isEnvGHA() {
+    return process.env.GITHUB_ACTIONS === 'true';
+}
+function getInput(name) {
+    if (isEnvGHA()) {
+        return (process.env[name] || core.getInput(name)).trim();
+    }
+    else {
+        return (process.env[name] || '').trim();
+    }
+}
+function setOutput(name, value) {
+    if (isEnvGHA()) {
+        core.setOutput(name, value);
+    }
+    else {
+        console.log(`Output ${name}: ${value}`);
+        process.env[name] = value;
+    }
+}
+exports.setOutput = setOutput;
 const getMultipleValuesInput = (name) => {
-    const values = process.env[name] || core.getInput(name);
+    const values = (0, exports.getValueAsIs)(name);
     return values
         .split(",")
         .map((el) => el.trim())
         .filter((el) => el);
 };
 exports.getMultipleValuesInput = getMultipleValuesInput;
+const getValueAsIs = (name) => {
+    return getInput(name);
+};
+exports.getValueAsIs = getValueAsIs;
+const setFailed = (message) => {
+    if (isEnvGHA()) {
+        core.setFailed(message);
+    }
+    else {
+        console.error(`Error: ${message}`);
+        process.exit(1);
+    }
+};
+exports.setFailed = setFailed;
+
+
+/***/ }),
+
+/***/ 15010:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getDateFormat = void 0;
+const constants_1 = __nccwpck_require__(11140);
+const env_1 = __nccwpck_require__(2171);
+const getDateFormat = () => {
+    const input = (0, env_1.getValueAsIs)("PERIOD_SPLIT_UNIT");
+    return constants_1.dateFormats[input];
+};
+exports.getDateFormat = getDateFormat;
 
 
 /***/ }),
@@ -306,52 +341,13 @@ exports.getMultipleValuesInput = getMultipleValuesInput;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getOrgs = void 0;
-const getMultipleValuesInput_1 = __nccwpck_require__(31437);
+const env_1 = __nccwpck_require__(2171);
 const getOrgs = () => {
-    const orgs = (0, getMultipleValuesInput_1.getMultipleValuesInput)("ORGANIZATIONS");
-    const repoOrgs = (0, getMultipleValuesInput_1.getMultipleValuesInput)("GITHUB_OWNERS_REPOS").map((repo) => repo.split("/")[0]);
+    const orgs = (0, env_1.getMultipleValuesInput)("ORGANIZATIONS");
+    const repoOrgs = (0, env_1.getMultipleValuesInput)("GITHUB_OWNERS_REPOS").map((repo) => repo.split("/")[0]);
     return [...new Set([...orgs, ...repoOrgs])];
 };
 exports.getOrgs = getOrgs;
-
-
-/***/ }),
-
-/***/ 18863:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getValueAsIs = void 0;
-const core = __importStar(__nccwpck_require__(42186));
-const getValueAsIs = (name) => {
-    return process.env[name]?.trim() || core.getInput(name)?.trim();
-};
-exports.getValueAsIs = getValueAsIs;
 
 
 /***/ }),
@@ -362,21 +358,21 @@ exports.getValueAsIs = getValueAsIs;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.getOrgs = exports.encrypt = exports.checkCommentSkip = exports.getMultipleValuesInput = exports.setTimezone = exports.getValueAsIs = exports.getDateFormat = void 0;
+exports.getValueAsIs = exports.getMultipleValuesInput = exports.setOutput = exports.getOrgs = exports.encrypt = exports.checkCommentSkip = exports.setTimezone = exports.getDateFormat = void 0;
 var getDateFormat_1 = __nccwpck_require__(15010);
 Object.defineProperty(exports, "getDateFormat", ({ enumerable: true, get: function () { return getDateFormat_1.getDateFormat; } }));
-var getValueAsIs_1 = __nccwpck_require__(18863);
-Object.defineProperty(exports, "getValueAsIs", ({ enumerable: true, get: function () { return getValueAsIs_1.getValueAsIs; } }));
 var setTimezone_1 = __nccwpck_require__(73220);
 Object.defineProperty(exports, "setTimezone", ({ enumerable: true, get: function () { return setTimezone_1.setTimezone; } }));
-var getMultipleValuesInput_1 = __nccwpck_require__(31437);
-Object.defineProperty(exports, "getMultipleValuesInput", ({ enumerable: true, get: function () { return getMultipleValuesInput_1.getMultipleValuesInput; } }));
 var checkCommentSkip_1 = __nccwpck_require__(61585);
 Object.defineProperty(exports, "checkCommentSkip", ({ enumerable: true, get: function () { return checkCommentSkip_1.checkCommentSkip; } }));
 var encrypt_1 = __nccwpck_require__(30625);
 Object.defineProperty(exports, "encrypt", ({ enumerable: true, get: function () { return encrypt_1.encrypt; } }));
 var getOrgs_1 = __nccwpck_require__(18326);
 Object.defineProperty(exports, "getOrgs", ({ enumerable: true, get: function () { return getOrgs_1.getOrgs; } }));
+var env_1 = __nccwpck_require__(2171);
+Object.defineProperty(exports, "setOutput", ({ enumerable: true, get: function () { return env_1.setOutput; } }));
+Object.defineProperty(exports, "getMultipleValuesInput", ({ enumerable: true, get: function () { return env_1.getMultipleValuesInput; } }));
+Object.defineProperty(exports, "getValueAsIs", ({ enumerable: true, get: function () { return env_1.getValueAsIs; } }));
 
 
 /***/ }),
@@ -388,9 +384,9 @@ Object.defineProperty(exports, "getOrgs", ({ enumerable: true, get: function () 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.setTimezone = void 0;
-const getValueAsIs_1 = __nccwpck_require__(18863);
+const env_1 = __nccwpck_require__(2171);
 const setTimezone = () => {
-    const timezone = (0, getValueAsIs_1.getValueAsIs)("TIMEZONE");
+    const timezone = (0, env_1.getValueAsIs)("TIMEZONE");
     if (timezone) {
         process.env.TZ = timezone;
     }
@@ -1752,36 +1748,12 @@ exports.prepareReviews = prepareReviews;
 /***/ }),
 
 /***/ 63119:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createOutput = void 0;
-const core = __importStar(__nccwpck_require__(42186));
 const utils_1 = __nccwpck_require__(41002);
 const view_1 = __nccwpck_require__(55379);
 const requests_1 = __nccwpck_require__(49591);
@@ -1880,10 +1852,10 @@ const createOutput = async (data) => {
                 : "";
             const markdown = (0, view_1.createMarkdown)(data, users, dates).concat(`\n${monthComparison}`);
             console.log("Markdown successfully generated.");
-            core.setOutput("MARKDOWN", markdown);
+            (0, utils_1.setOutput)("MARKDOWN", markdown);
         }
         if (outcome === "collection") {
-            core.setOutput("JSON_COLLECTION", JSON.stringify(data));
+            (0, utils_1.setOutput)("JSON_COLLECTION", JSON.stringify(data));
         }
     }
 };
@@ -1906,39 +1878,16 @@ Object.defineProperty(exports, "octokit", ({ enumerable: true, get: function () 
 /***/ }),
 
 /***/ 24641:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.octokit = void 0;
 const octokit_1 = __nccwpck_require__(57467);
-const core = __importStar(__nccwpck_require__(42186));
 const plugin_throttling_1 = __nccwpck_require__(9968);
 const utils_1 = __nccwpck_require__(41002);
+const env_1 = __nccwpck_require__(2171);
 octokit_1.Octokit.plugin(plugin_throttling_1.throttling);
 const defaultBaseUrl = "https://api.github.com";
 exports.octokit = new octokit_1.Octokit({
@@ -1947,12 +1896,12 @@ exports.octokit = new octokit_1.Octokit({
     throttle: {
         onSecondaryRateLimit: (_, options) => {
             exports.octokit.log.error(`SecondaryRateLimit detected for request ${options.method} ${options.url}`);
-            core.setFailed(`SecondaryRateLimit detected for request ${options.method} ${options.url}`);
+            (0, env_1.setFailed)(`SecondaryRateLimit detected for request ${options.method} ${options.url}`);
             throw `SecondaryRateLimit detected for request ${options.method} ${options.url}`;
         },
         onRateLimit: (_, options) => {
             exports.octokit.log.error(`Request quota exhausted for request ${options.method} ${options.url}`);
-            core.setFailed(`Request quota exhausted for request ${options.method} ${options.url}`);
+            (0, env_1.setFailed)(`Request quota exhausted for request ${options.method} ${options.url}`);
             throw `Request quota exhausted for request ${options.method} ${options.url}`;
         },
         enabled: true,
